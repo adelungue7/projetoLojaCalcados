@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adelungue Shoes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Adelungue Shoes</h1>
+    <p>O melhor da moda sneaker, azul e branco!</p>
+  </header>
+  <nav>
+    <a href="#" onclick="showSection('main-content')">Produtos</a>
+    <a href="#" onclick="showSection('login-area')">Login</a>
+    <a href="#" id="admin-link" style="display:none" onclick="showSection('admin-panel')">Administração</a>
+    <a href="#" id="logout-link" style="display:none" onclick="logout()">Sair</a>
+  </nav>
+  <section id="main-content">
+    <h2>Produtos em Destaque</h2>
+    <div id="product-list"></div>
+  </section>
+  <section id="login-area">
+    <h2>Login</h2>
+    <form id="login-form">
+      <label for="user">Usuário:</label><br>
+      <input type="text" id="user" name="user" required><br><br>
+      <label for="pass">Senha:</label><br>
+      <input type="password" id="pass" name="pass" required><br><br>
+      <button type="submit" class="button">Entrar</button>
+      <div id="login-error" style="color:red; margin-top:1rem; display:none"></div>
+    </form>
+  </section>
+  <section id="admin-panel">
+    <h2>Painel de Administração</h2>
+    <form id="add-product-form">
+      <input type="text" id="new-product-name" placeholder="Nome do Produto" required>
+      <input type="text" id="new-product-img" placeholder="URL da Imagem" required>
+      <button type="submit" class="button">Adicionar Produto</button>
+    </form>
+    <h3>Produtos Cadastrados</h3>
+    <ul id="admin-product-list"></ul>
+  </section>
+  <script src="main.js"></script>
+</body>
+</html>
