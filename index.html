@@ -3,13 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adelungue Shoes</title>
+    <title>StyleWalk</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Adelungue Shoes</h1>
-    <p>O melhor da moda sneaker, azul e branco!</p>
+  <header class="main-header">
+    <div class="logo-area">
+      <img src="logo.png" alt="Logo" class="logo-img">
+      <span class="site-title">StyleWalk</span>
+    </div>
+    <nav class="main-nav">
+      <a href="#" class="nav-link">LANÇAMENTOS</a>
+      <a href="#" class="nav-link">MASCULINO</a>
+      <a href="#" class="nav-link">FEMININO</a>
+      <a href="#" class="nav-link">INFANTIL</a>
+      <a href="#" class="nav-link">ESPORTES</a>
+    </nav>
+    <div class="header-actions">
+      <input type="text" class="search-box" placeholder="Buscar...">
+      <span class="icon user"></span>
+      <span class="icon heart"></span>
+      <span class="icon cart"></span>
+      <a href="#" class="logout">sair</a>
+    </div>
   </header>
   <nav>
     <a href="#" onclick="showSection('main-content')">Produtos</a>
@@ -32,15 +48,37 @@
       <div id="login-error" style="color:red; margin-top:1rem; display:none"></div>
     </form>
   </section>
-  <section id="admin-panel">
-    <h2>Painel de Administração</h2>
-    <form id="add-product-form">
-      <input type="text" id="new-product-name" placeholder="Nome do Produto" required>
-      <input type="text" id="new-product-img" placeholder="URL da Imagem" required>
-      <button type="submit" class="button">Adicionar Produto</button>
-    </form>
-    <h3>Produtos Cadastrados</h3>
-    <ul id="admin-product-list"></ul>
+  <section id="admin-panel" class="admin-panel">
+    <div class="admin-card">
+      <h2>Painel de Administração</h2>
+      <form id="add-product-form" class="admin-form">
+        <input type="text" id="new-product-name" placeholder="Nome do Produto" required>
+        <input type="text" id="new-product-img" placeholder="URL da Imagem" required>
+        <button type="submit" class="button">Adicionar Produto</button>
+      </form>
+      <h3>Produtos Cadastrados</h3>
+      <ul id="admin-product-list" class="admin-list"></ul>
+      <div id="edit-product-modal" class="modal" style="display:none">
+        <div class="modal-content">
+          <span class="close" onclick="closeEditModal()">&times;</span>
+          <h3>Editar Produto</h3>
+          <form id="edit-product-form" class="admin-form">
+            <input type="text" id="edit-product-name" placeholder="Nome do Produto" required>
+            <input type="text" id="edit-product-img" placeholder="URL da Imagem" required>
+            <button type="submit" class="button">Salvar Alterações</button>
+          </form>
+        </div>
+      </div>
+      <button class="button" onclick="showSection('admin-users')" style="margin-top:2rem">Gerenciar Usuários</button>
+    </div>
+  </section>
+
+  <section id="admin-users" class="admin-panel" style="display:none">
+    <div class="admin-card">
+      <h2>Usuários do Sistema</h2>
+      <ul id="admin-user-list" class="admin-list"></ul>
+      <button class="button" onclick="showSection('admin-panel')" style="margin-top:2rem">Voltar ao Painel</button>
+    </div>
   </section>
   <script src="main.js"></script>
 </body>

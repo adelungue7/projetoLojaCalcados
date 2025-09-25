@@ -29,33 +29,80 @@ function renderAdminProdutos() {
   ul.innerHTML = '';
   produtos.forEach((prod, idx) => {
     const li = document.createElement('li');
-    li.textContent = prod.nome;
+    li.innerHTML = `<span><strong>${prod.nome}</strong></span>`;
     if (window.userTipo === 'admin') {
-      const btn = document.createElement('button');
-      btn.textContent = 'Remover';
-      btn.className = 'button';
-      btn.style.marginLeft = '1rem';
-      btn.onclick = () => {
+      const editBtn = document.createElement('button');
+      editBtn.textContent = 'Editar';
+      editBtn.className = 'button';
+      editBtn.onclick = () => openEditModal(idx);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = 'Remover';
+      removeBtn.className = 'button';
+      removeBtn.style.marginLeft = '0.5rem';
+      removeBtn.onclick = () => {
         produtos.splice(idx, 1);
         renderProdutos();
       };
-      li.appendChild(btn);
+
+      li.appendChild(editBtn);
+      li.appendChild(removeBtn);
     }
     ul.appendChild(li);
   });
 }
 
+// Modal de edição
+let editIdx = null;
+function openEditModal(idx) {
+  editIdx = idx;
+  document.getElementById('edit-product-name').value = produtos[idx].nome;
+  document.getElementById('edit-product-img').value = produtos[idx].img;
+  document.getElementById('edit-product-modal').style.display = 'block';
+}
+function closeEditModal() {
+  document.getElementById('edit-product-modal').style.display = 'none';
+  editIdx = null;
+}
+document.getElementById('edit-product-form').onsubmit = function(e) {
+  e.preventDefault();
+  if (editIdx !== null) {
+    produtos[editIdx].nome = document.getElementById('edit-product-name').value;
+    produtos[editIdx].img = document.getElementById('edit-product-img').value;
+    renderProdutos();
+    closeEditModal();
+  }
+};
+
 function showSection(id) {
   document.getElementById('main-content').style.display = 'none';
   document.getElementById('login-area').classList.remove('active');
   document.getElementById('admin-panel').classList.remove('active');
+  const adminUsers = document.getElementById('admin-users');
+  if (adminUsers) adminUsers.classList.remove('active');
   if (id === 'main-content') {
     document.getElementById('main-content').style.display = 'block';
   } else if (id === 'login-area') {
     document.getElementById('login-area').classList.add('active');
   } else if (id === 'admin-panel') {
     document.getElementById('admin-panel').classList.add('active');
+  } else if (id === 'admin-users') {
+    if (adminUsers) {
+      adminUsers.classList.add('active');
+      renderAdminUsers();
+    }
   }
+}
+// Renderiza lista de usuários na tela de admin-users
+function renderAdminUsers() {
+  const ul = document.getElementById('admin-user-list');
+  if (!ul) return;
+  ul.innerHTML = '';
+  usuarios.forEach((u, idx) => {
+    const li = document.createElement('li');
+    li.textContent = `${u.user} (${u.tipo})`;
+    ul.appendChild(li);
+  });
 }
 
 function logout() {
