@@ -27,26 +27,28 @@
       <a href="#" class="logout">sair</a>
     </div>
   </header>
-  <nav>
-    <a href="#" onclick="showSection('main-content')">Produtos</a>
-    <a href="#" onclick="showSection('login-area')">Login</a>
-    <a href="#" id="admin-link" style="display:none" onclick="showSection('admin-panel')">Administração</a>
-    <a href="#" id="logout-link" style="display:none" onclick="logout()">Sair</a>
+  <nav class="main-nav-bar">
+    <button class="nav-btn" onclick="showSection('main-content')">Produtos</button>
+    <button class="nav-btn" onclick="showSection('login-area')">Login</button>
+    <button class="nav-btn" id="admin-link" style="display:none" onclick="showSection('admin-panel')">Administração</button>
+    <button class="nav-btn" id="logout-link" style="display:none" onclick="logout()">Sair</button>
   </nav>
   <section id="main-content">
     <h2>Produtos em Destaque</h2>
     <div id="product-list"></div>
   </section>
   <section id="login-area">
-    <h2>Login</h2>
-    <form id="login-form">
-      <label for="user">Usuário:</label><br>
-      <input type="text" id="user" name="user" required><br><br>
-      <label for="pass">Senha:</label><br>
-      <input type="password" id="pass" name="pass" required><br><br>
-      <button type="submit" class="button">Entrar</button>
-      <div id="login-error" style="color:red; margin-top:1rem; display:none"></div>
-    </form>
+    <div class="login-card">
+      <h2>Login</h2>
+      <form id="login-form" class="login-form">
+        <label for="user">Usuário:</label>
+        <input type="text" id="user" name="user" required>
+        <label for="pass">Senha:</label>
+        <input type="password" id="pass" name="pass" required>
+        <button type="submit" class="button main-btn">Entrar</button>
+        <div id="login-error" class="login-error" style="display:none"></div>
+      </form>
+    </div>
   </section>
   <section id="admin-panel" class="admin-panel">
     <div class="admin-card">
@@ -54,10 +56,23 @@
       <form id="add-product-form" class="admin-form">
         <input type="text" id="new-product-name" placeholder="Nome do Produto" required>
         <input type="text" id="new-product-img" placeholder="URL da Imagem" required>
-        <button type="submit" class="button">Adicionar Produto</button>
+        <textarea id="new-product-desc" placeholder="Descrição do Produto" rows="2" style="resize:none"></textarea>
+        <button type="submit" class="main-btn">Adicionar Produto</button>
       </form>
       <h3>Produtos Cadastrados</h3>
-      <ul id="admin-product-list" class="admin-list"></ul>
+      <div class="table-responsive">
+        <table id="admin-product-table" class="admin-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Imagem</th>
+              <th>Descrição</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
       <div id="edit-product-modal" class="modal" style="display:none">
         <div class="modal-content">
           <span class="close" onclick="closeEditModal()">&times;</span>
@@ -65,11 +80,15 @@
           <form id="edit-product-form" class="admin-form">
             <input type="text" id="edit-product-name" placeholder="Nome do Produto" required>
             <input type="text" id="edit-product-img" placeholder="URL da Imagem" required>
-            <button type="submit" class="button">Salvar Alterações</button>
+            <textarea id="edit-product-desc" placeholder="Descrição do Produto" rows="3" style="resize:none"></textarea>
+            <button type="submit" class="main-btn">Salvar Alterações</button>
           </form>
         </div>
       </div>
-      <button class="button" onclick="showSection('admin-users')" style="margin-top:2rem">Gerenciar Usuários</button>
+      <div class="admin-actions">
+        <button class="nav-btn" onclick="showSection('admin-users')">Gerenciar Usuários</button>
+  <button id="toggle-edit-btn" class="nav-btn" onclick="toggleEditMode()">Editar Produtos</button>
+      </div>
     </div>
   </section>
 
@@ -77,7 +96,7 @@
     <div class="admin-card">
       <h2>Usuários do Sistema</h2>
       <ul id="admin-user-list" class="admin-list"></ul>
-      <button class="button" onclick="showSection('admin-panel')" style="margin-top:2rem">Voltar ao Painel</button>
+  <button class="button" onclick="showSection('admin-panel'); toggleEditMode(false)" style="margin-top:2rem">Voltar ao Painel</button>
     </div>
   </section>
   <script src="main.js"></script>
